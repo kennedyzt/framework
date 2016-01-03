@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siping.rmi.mapper.user.UserMapper">
+	<resultMap id="BaseResultMap" type="com.siping.rmi.beans.user.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.siping.rmi.beans.user.User"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into `user` (`name`, pwd)
+		values (#{name,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR})
+	</insert>
+	<select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from t_user u where u.username = #{username}
+	</select>
+	<select id="findRolesByUserId" parameterType="java.lang.Integer"
+		resultType="com.siping.rmi.beans.user.Role">
+		SELECT
+		r.id,
+		r.rolename
+		FROM
+		t_user_role ur
+		LEFT JOIN t_role r ON
+		r.id = ur.role_id
+		WHERE
+		ur.user_id = #{userId}
+	</select>
+	<select id="findPermissionByRoleId"
+		resultType="java.lang.String">
+		SELECT
+		p.permissionname
+		FROM
+		t_permission p
+		WHERE
+		p.role_id in
+		<foreach collection="list" item="roleId" index="index"
+			open="(" close=")" separator=",">#{roleId}</foreach>
+	</select>
+</mapper>
