@@ -1,4 +1,7 @@
-# framework
-# 2016-02-20
-# varsion 1.0.0
-技术框架整合
+
+                                                        Framework
+@version 1.0.0
+@author zengt
+
+
+项目简介：
