@@ -7,8 +7,8 @@ public class User {
 	private Integer id;
 	private String username;
 	private String password;
-	private List<Role> roleList; // 一个用户具有多个角色
-	private Set<String> roles; //角色名
+	private List<Role> roleList;
+	private Set<String> roles; 
 
 	public Integer getId() {
 		return id;
