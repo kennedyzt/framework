@@ -21,7 +21,7 @@ public class HomeController {
 	public String login(User user) {
 		try {
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(user.getUsername(), user.getPassword()));
-			return "redirect:/user/getlist";
+			return "/login/login";
 		} catch (AuthenticationException e) {
 			return "redirect:/login";
 		}
