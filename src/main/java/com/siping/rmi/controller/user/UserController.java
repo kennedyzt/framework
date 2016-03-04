@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
-	public String loginForm() {
-		return "/user/user";
-	}
+    @RequestMapping(value = "/getlist", method = RequestMethod.GET)
+    public String loginForm() {
+        return "/user/user";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String toAdd() {
+        return "/user/add";
+    }
 }

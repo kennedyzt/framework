@@ -25,7 +25,8 @@ public class DownLoadController {
             // 取得文件名。
             String filename = file.getName();
             // 取得文件的后缀名。
-            String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
+            // String ext = filename.substring(filename.lastIndexOf(".") +
+            // 1).toUpperCase();
 
             // 以流的形式下载文件。
             InputStream fis = new BufferedInputStream(new FileInputStream(file));

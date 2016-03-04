@@ -1,6 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/java/com/siping/rmi/beans/user/User.java=UTF-8
-encoding//src/main/webapp/WEB-INF/views/user/user.jsp=UTF-8
-encoding//src/test/java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layout/content.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layout/footer.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layout/header.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layout/main.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layout/menu.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/login/login.jsp=UTF-8
 encoding/<project>=UTF-8
+separateDerivedEncodings=true
