@@ -691,7 +691,7 @@
 		item: '<li class="list-group-item"></li>',
 		indent: '<span class="indent"></span>',
 		icon: '<span class="icon"></span>',
-		link: '<a href="#" style="color:inherit;"></a>',
+		link: '<a href="#" style="color:inherit;" target="content"></a>',
 		badge: '<span class="badge"></span>'
 	};
 

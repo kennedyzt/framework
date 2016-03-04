@@ -17,7 +17,7 @@
 				<iframe src="/menu" width="100%" height="100%"></iframe>
 			</div>
 			<div id="content" style="float: left; width: 80%; height: 100%">
-				<iframe src="/content" width="100%" height="100%"></iframe>
+				<iframe src="/content" name="content" width="100%" height="100%"></iframe>
 			</div>
 		</div>
 		<div id="footer" style="height: 100px">
