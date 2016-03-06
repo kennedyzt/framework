@@ -10,7 +10,6 @@
 <body>
 	<div id="tree">
 	</div>
-	 <a href="/user/add" target="content"> aaaa</a>
 </body>
 </html>
 <script>
@@ -35,7 +34,8 @@
                 text : "用户添加",
                 href : "/user/add"
             }, {
-                text : "用户分组"
+                text : "用户分组",
+                href : "/login"
             } ]
         }, {
             text : "权限设置"

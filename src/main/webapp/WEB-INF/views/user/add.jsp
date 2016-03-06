@@ -8,17 +8,18 @@
 <script type="text/javascript" src="/resources/js/jquery/jquery-2.1.4.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap/bootstrap-treeview.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap/jquery.freezeheader.js"></script>
+<script type="text/javascript" src="/resources/js/framework.js"></script>
 </head>
 <body>
 	<form role="form">
 		<div class="form-group">
-			<label for="name">名称</label> <input type="text" class="form-control" id="name" placeholder="请输入名称">
+			<label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
 		</div>
 		<div class="form-group">
-			<label for="name">名称</label> <input type="text" class="form-control" id="name" placeholder="请输入名称">
+			<label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
 		</div>
 		<div class="form-group">
-			<label for="name">名称</label> <input type="text" class="form-control" id="name" placeholder="请输入名称">
+			<label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
 		</div>
 		<button type="submit" class="btn btn-default">提交</button>
 	</form>
