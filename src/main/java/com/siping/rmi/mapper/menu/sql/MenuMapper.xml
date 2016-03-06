@@ -16,9 +16,9 @@
         </collection>
     </resultMap>
     <select id="getList" resultMap="MenuMap">
-        select * from menu
+        select m.* from menu m where m.level=1
     </select>
     <select id="getChirldren" parameterType="java.lang.Integer" resultMap="MenuMap">
-        select * from menu m where m.id=m.parent_id=#{id}
+        select * from menu m where m.parent_id=#{id}
     </select>
 </mapper>
