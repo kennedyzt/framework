@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.siping.rmi.beans.user.Role;
 import com.siping.rmi.beans.user.User;
-import com.siping.rmi.service.user.UserService;
+import com.siping.rmi.service.user.IUserService;
 
 public class MyShiro extends AuthorizingRealm {
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {

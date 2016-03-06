@@ -5,7 +5,7 @@ import java.util.List;
 import com.siping.rmi.beans.user.Role;
 import com.siping.rmi.beans.user.User;
 
-public interface UserService {
+public interface IUserService {
 	public void add(User user) throws Exception;
 
 	public User findByName(String loginName) throws Exception;

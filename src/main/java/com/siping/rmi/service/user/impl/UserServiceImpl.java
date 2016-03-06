@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.siping.rmi.beans.user.Role;
 import com.siping.rmi.beans.user.User;
 import com.siping.rmi.mapper.user.UserMapper;
-import com.siping.rmi.service.user.UserService;
+import com.siping.rmi.service.user.IUserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper userMapper;
 
