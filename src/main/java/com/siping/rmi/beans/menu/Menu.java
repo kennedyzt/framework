@@ -1,15 +1,18 @@
 package com.siping.rmi.beans.menu;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.siping.rmi.beans.common.BaseData;
 
 public class Menu extends BaseData implements Serializable {
     private static final long serialVersionUID = 1L;
+    private Integer parentId;
     private String text;
     private String icon;
     private String selectedIcon;
     private String href;
+    private List<Menu> chrildrens;
 
     public String getText() {
         return text;
@@ -41,5 +44,21 @@ public class Menu extends BaseData implements Serializable {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public List<Menu> getChrildrens() {
+        return chrildrens;
+    }
+
+    public void setChrildrens(List<Menu> chrildrens) {
+        this.chrildrens = chrildrens;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }
