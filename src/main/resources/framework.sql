@@ -10,10 +10,40 @@ Target Server Type    : MYSQL
 Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2016-02-21 21:04:15
+Date: 2016-03-06 20:58:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `level` int(11) unsigned DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `selectedIcon` varchar(255) DEFAULT NULL,
+  `href` varchar(255) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `create_by` varchar(17) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `update_by` varchar(17) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('1', null, '1', '系统管理', null, null, '/user/add', '2016-03-06 19:00:33', '1', null, null);
+INSERT INTO `menu` VALUES ('2', '1', '2', '用户管理', null, null, '/user/list', '2016-03-06 19:01:11', '1', null, null);
+INSERT INTO `menu` VALUES ('3', null, '1', '采购订单', null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('4', null, '1', '销售订单', null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('5', null, '1', '销售发货单', null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('6', null, '1', '库存发货单', null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('7', '2', '3', '用户列表', null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('8', '2', null, '权限管理', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_permission
