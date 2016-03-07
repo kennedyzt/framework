@@ -8,7 +8,7 @@
 <script src="/resources/js/bootstrap/bootstrap-treeview.js"></script>
 </head>
 <body>
-    <div id="tree"></div>
+	<div id="tree"></div>
 </body>
 </html>
 <script>
@@ -20,7 +20,7 @@
             success : function(data) {
                 $('#tree').treeview({
                     data : data,
-                    backColor : "#00FF00 ",
+                    levels : 1,
                     emptyIcon : "glyphicon glyphicon-stop",
                     enableLinks : true
                 });

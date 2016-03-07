@@ -12,7 +12,7 @@
         <result column="create_by" jdbcType="VARCHAR" property="createBy" />
         <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
         <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-        <collection property="chrildrens" column="id" ofType="com.siping.rmi.beans.menu.Menu" select="getChirldren">
+        <collection property="nodes" column="id" ofType="com.siping.rmi.beans.menu.Menu" select="getChirldren">
         </collection>
     </resultMap>
     <select id="getList" resultMap="MenuMap">

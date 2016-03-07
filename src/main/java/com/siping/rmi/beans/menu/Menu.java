@@ -12,7 +12,7 @@ public class Menu extends BaseData implements Serializable {
     private String icon;
     private String selectedIcon;
     private String href;
-    private List<Menu> chrildrens;
+    private List<Menu> nodes;
 
     public String getText() {
         return text;
@@ -46,12 +46,12 @@ public class Menu extends BaseData implements Serializable {
         this.href = href;
     }
 
-    public List<Menu> getChrildrens() {
-        return chrildrens;
+    public List<Menu> getNodes() {
+        return nodes;
     }
 
-    public void setChrildrens(List<Menu> chrildrens) {
-        this.chrildrens = chrildrens;
+    public void setNodes(List<Menu> nodes) {
+        this.nodes = nodes;
     }
 
     public Integer getParentId() {
