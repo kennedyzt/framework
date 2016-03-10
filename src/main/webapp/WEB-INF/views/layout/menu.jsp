@@ -8,7 +8,7 @@
 <script src="/resources/js/bootstrap/bootstrap-treeview.js"></script>
 </head>
 <body>
-	<div id="tree"></div>
+    <div id="tree"></div>
 </body>
 </html>
 <script>

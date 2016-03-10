@@ -7,11 +7,27 @@ import com.siping.rmi.beans.common.BaseData;
 
 public class Menu extends BaseData implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Integer parentId;
+
+    private Integer level;
+
     private String text;
+
     private String icon;
+
     private String selectedIcon;
+
+    private String color;
+
+    private String backColor;
+
     private String href;
+
+    private Boolean selectTable;
+
+    private String tags;
+
     private List<Menu> nodes;
 
     public String getText() {
@@ -60,5 +76,45 @@ public class Menu extends BaseData implements Serializable {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getBackColor() {
+        return backColor;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setBackColor(String backColor) {
+        this.backColor = backColor;
+    }
+
+    public Boolean getSelectTable() {
+        return selectTable;
+    }
+
+    public void setSelectTable(Boolean selectTable) {
+        this.selectTable = selectTable;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }
