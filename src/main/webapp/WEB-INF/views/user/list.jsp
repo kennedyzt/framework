@@ -5,16 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css" />
+<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap-table.css" />
 <script type="text/javascript" src="/resources/js/jquery/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-treeview.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap/jquery.freezeheader.js"></script>
+<script src="/resources/js/bootstrap/bootstrap.js"></script>
+<script src="/resources/js/bootstrap/bootstrap-table.js"></script>
 </head>
-<script type="text/javascript" src="/resources/js/admin/admin.js/"></script>
 <body>
-	<div class="col-sm-4">
-		<h2>Default</h2>
-		<div id="treeview1" class=""></div>
-	</div>
-	<div id="user_data"></div>
+    <div></div>
+    <table id="table"></table>
 </body>
+<script type="text/javascript" src="/resources/js/zt/user/list.js/"></script>
 </html>

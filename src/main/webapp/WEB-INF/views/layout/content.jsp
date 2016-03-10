@@ -6,6 +6,7 @@
 <meta charset="utf-8">
 <title>My HTML File</title>
 <link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css">
+<script src="/resources/js/bootstrap/bootstrap.js"></script>
 </head>
 <body>
     <h1>内容</h1>

@@ -1,52 +1,91 @@
 package com.siping.rmi.beans.user;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-public class User {
-	private Integer id;
-	private String username;
-	private String password;
-	private List<Role> roleList;
-	private Set<String> roles; 
+import com.siping.rmi.beans.common.BaseData;
 
-	public Integer getId() {
-		return id;
-	}
+public class User extends BaseData implements Serializable {
+    private static final long serialVersionUID = -5450606930485978802L;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String username;
 
-	public String getUsername() {
-		return username;
-	}
+    private String nickname;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    private String password;
 
-	public String getPassword() {
-		return password;
-	}
+    private String email;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String telephone;
 
-	public List<Role> getRoleList() {
-		return roleList;
-	}
+    private String address;
 
-	public void setRoleList(List<Role> roleList) {
-		this.roleList = roleList;
-	}
+    private List<Role> roleList;
 
-	public Set<String> getRoles() {
-		return roles;
-	}
+    private Set<String> roles;
 
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }
