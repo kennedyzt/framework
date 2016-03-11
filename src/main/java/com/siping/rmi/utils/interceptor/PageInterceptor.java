@@ -1,9 +1,11 @@
 package com.siping.rmi.utils.interceptor;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;
@@ -29,18 +31,15 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 
 /**
- * 通过拦截<code>StatementHandler</code>的<code>prepare</code>方法，重写sql语句实现物理分页。
- * 老规矩，签名里要拦截的类型只能是接口。
- * 
- * @author 湖畔微风
- * 
+ * 通过拦截StatementHandler的prepare方法，重写sql语句实现物理分页。
+ * @author zengt
  */
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})})
+@Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
 public class PageInterceptor implements Interceptor {
     private static final Log logger = LogFactory.getLog(PageInterceptor.class);
     private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
-    private static final ReflectorFactory FLECTOR_FACTORY = new DefaultReflectorFactory();
+    private static final ReflectorFactory DEFAULT_REFLECTOR_FACTORY = new DefaultReflectorFactory();
     private static String defaultDialect = "mysql"; // 数据库类型(默认为mysql)
     private static String defaultPageSqlId = ".*Page$"; // 需要拦截的ID(正则匹配)
     private static String dialect = ""; // 数据库类型(默认为mysql)
@@ -49,17 +48,16 @@ public class PageInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
-        MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY,
-                DEFAULT_OBJECT_WRAPPER_FACTORY,FLECTOR_FACTORY);
+        MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY, DEFAULT_REFLECTOR_FACTORY);
         // 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
         while (metaStatementHandler.hasGetter("h")) {
             Object object = metaStatementHandler.getValue("h");
-            metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY,FLECTOR_FACTORY);
+            metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY, DEFAULT_REFLECTOR_FACTORY);
         }
         // 分离最后一个代理对象的目标类
         while (metaStatementHandler.hasGetter("target")) {
             Object object = metaStatementHandler.getValue("target");
-            metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY,FLECTOR_FACTORY);
+            metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY, DEFAULT_REFLECTOR_FACTORY);
         }
         Configuration configuration = (Configuration) metaStatementHandler.getValue("delegate.configuration");
         dialect = configuration.getVariables().getProperty("dialect");
@@ -76,21 +74,21 @@ public class PageInterceptor implements Interceptor {
         // 只重写需要分页的sql语句。通过MappedStatement的ID匹配，默认重写以Page结尾的MappedStatement的sql
         if (mappedStatement.getId().matches(pageSqlId)) {
             BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
-            Object parameterObject = boundSql.getParameterObject();
-            if (parameterObject == null) {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> paramMap = (Map<String, Object>) boundSql.getParameterObject();
+            if (paramMap == null) {
                 throw new NullPointerException("parameterObject is null!");
             } else {
-                Pager page = (Pager) metaStatementHandler.getValue("delegate.boundSql.parameterObject.page");
                 String sql = boundSql.getSql();
                 // 重写sql
-                String pageSql = buildPageSql(sql, page);
+                String pageSql = buildPageSql(sql, paramMap);
                 metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
                 // 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数
                 metaStatementHandler.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
                 metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
                 Connection connection = (Connection) invocation.getArgs()[0];
                 // 重设分页参数里的总页数等
-                setPageParameter(sql, connection, mappedStatement, boundSql, page);
+                setPageParameter(sql, connection, mappedStatement, boundSql, paramMap);
             }
         }
         // 将执行权交给下一个拦截器
@@ -100,35 +98,39 @@ public class PageInterceptor implements Interceptor {
     /**
      * 从数据库里查询总的记录数并计算总页数，回写进分页参数<code>PageParameter</code>,这样调用者就可用通过 分页参数
      * <code>PageParameter</code>获得相关信息。
-     * 
      * @param sql
      * @param connection
      * @param mappedStatement
      * @param boundSql
      * @param page
      */
-    private void setPageParameter(String sql, Connection connection, MappedStatement mappedStatement,
-            BoundSql boundSql, Pager page) {
+    private void setPageParameter(String sql, Connection connection, MappedStatement mappedStatement, BoundSql boundSql, Map<String, Object> paramMap) {
         // 记录总记录数
         String countSql = "select count(0) from (" + sql + ") as total";
         PreparedStatement countStmt = null;
         ResultSet rs = null;
         try {
             countStmt = connection.prepareStatement(countSql);
-            BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), countSql,
-                    boundSql.getParameterMappings(), boundSql.getParameterObject());
+            // 由于该物理分页不支持mybatis的<foreach>标签，so对该分页做一下更改
+            BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), sql, boundSql.getParameterMappings(), boundSql.getParameterObject());
+            Field metaParamsField = ReflectUtil.getFieldByFieldName(boundSql, "metaParameters");
+            if (metaParamsField != null) {
+                MetaObject mo = (MetaObject) ReflectUtil.getValueByFieldName(boundSql, "metaParameters");
+                ReflectUtil.setValueByFieldName(countBS, "metaParameters", mo);
+            }
             setParameters(countStmt, mappedStatement, countBS, boundSql.getParameterObject());
             rs = countStmt.executeQuery();
             int totalCount = 0;
             if (rs.next()) {
                 totalCount = rs.getInt(1);
             }
-            page.setTotalCount(totalCount);
-            int totalPage = totalCount / page.getPageSize() + ((totalCount % page.getPageSize() == 0) ? 0 : 1);
-            page.setTotalPage(totalPage);
-
+            paramMap.put("totalCount", totalCount);
         } catch (SQLException e) {
             logger.error("Ignore this exception", e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
         } finally {
             try {
                 rs.close();
@@ -146,33 +148,30 @@ public class PageInterceptor implements Interceptor {
 
     /**
      * 对SQL参数(?)设值
-     * 
      * @param ps
      * @param mappedStatement
      * @param boundSql
      * @param parameterObject
      * @throws SQLException
      */
-    private void setParameters(PreparedStatement ps, MappedStatement mappedStatement, BoundSql boundSql,
-            Object parameterObject) throws SQLException {
+    private void setParameters(PreparedStatement ps, MappedStatement mappedStatement, BoundSql boundSql, Object parameterObject) throws SQLException {
         ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, parameterObject, boundSql);
         parameterHandler.setParameters(ps);
     }
 
     /**
      * 根据数据库类型，生成特定的分页sql
-     * 
      * @param sql
      * @param page
      * @return
      */
-    private String buildPageSql(String sql, Pager page) {
-        if (page != null) {
+    private String buildPageSql(String sql, Map<String, Object> paramMap) {
+        if (paramMap.get("limit").toString().trim().length() != 0) {
             StringBuilder pageSql = new StringBuilder();
             if ("mysql".equals(dialect)) {
-                pageSql = buildPageSqlForMysql(sql, page);
+                pageSql = buildPageSqlForMysql(sql, paramMap);
             } else if ("oracle".equals(dialect)) {
-                pageSql = buildPageSqlForOracle(sql, page);
+                pageSql = buildPageSqlForOracle(sql, paramMap);
             } else {
                 return sql;
             }
@@ -184,31 +183,28 @@ public class PageInterceptor implements Interceptor {
 
     /**
      * mysql的分页语句
-     * 
      * @param sql
      * @param page
      * @return String
      */
-    public StringBuilder buildPageSqlForMysql(String sql, Pager page) {
+    public StringBuilder buildPageSqlForMysql(String sql, Map<String, Object> paramMap) {
         StringBuilder pageSql = new StringBuilder(100);
-        String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());
+        String beginrow = String.valueOf(paramMap.get("offset"));
         pageSql.append(sql);
-        pageSql.append(" limit " + beginrow + "," + page.getPageSize());
+        pageSql.append(" limit " + beginrow + "," + paramMap.get("limit"));
         return pageSql;
     }
 
     /**
      * 参考hibernate的实现完成oracle的分页
-     * 
      * @param sql
      * @param page
      * @return String
      */
-    public StringBuilder buildPageSqlForOracle(String sql, Pager page) {
+    public StringBuilder buildPageSqlForOracle(String sql, Map<String, Object> paramMap) {
         StringBuilder pageSql = new StringBuilder(100);
-        String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());
-        String endrow = String.valueOf(page.getCurrentPage() * page.getPageSize());
-
+        String beginrow = (String) paramMap.get("offset");
+        String endrow = String.valueOf((Integer) paramMap.get("offset") + (Integer) paramMap.get("limit"));
         pageSql.append("select * from ( select temp.*, rownum row_id from ( ");
         pageSql.append(sql);
         pageSql.append(" ) temp where rownum <= ").append(endrow);
@@ -230,4 +226,68 @@ public class PageInterceptor implements Interceptor {
     public void setProperties(Properties properties) {
     }
 
+}
+
+class ReflectUtil {
+    /**
+     * 获取obj对象fieldName的Field
+     * @param obj
+     * @param fieldName
+     * @return
+     */
+    public static Field getFieldByFieldName(Object obj, String fieldName) {
+        for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
+            try {
+                return superClass.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException e) {
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取obj对象fieldName的属性值
+     * @param obj
+     * @param fieldName
+     * @return
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public static Object getValueByFieldName(Object obj, String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        Field field = getFieldByFieldName(obj, fieldName);
+        Object value = null;
+        if (field != null) {
+            if (field.isAccessible()) {
+                value = field.get(obj);
+            } else {
+                field.setAccessible(true);
+                value = field.get(obj);
+                field.setAccessible(false);
+            }
+        }
+        return value;
+    }
+
+    /**
+     * 设置obj对象fieldName的属性值
+     * @param obj
+     * @param fieldName
+     * @param value
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public static void setValueByFieldName(Object obj, String fieldName, Object value) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        Field field = getFieldByFieldName(obj, fieldName);
+        if (field.isAccessible()) {
+            field.set(obj, value);
+        } else {
+            field.setAccessible(true);
+            field.set(obj, value);
+            field.setAccessible(false);
+        }
+    }
 }

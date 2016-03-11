@@ -3,29 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- <typeAliases></typeAliases> -->
-<!-- 	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="${jdbc.driverClassName}" />
-				<property name="url" value="${jdbc.readUrl}" />
-				<property name="username" value="${jdbc.username}" />
-				<property name="password" value="${jdbc.password}" />
-			</dataSource>
-		</environment>
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="${jdbc.driverClassName}" />
-				<property name="url" value="${jdbc.writeUrl}" />
-				<property name="username" value="${jdbc.username}" />
-				<property name="password" value="${jdbc.password}" />
-			</dataSource>
-		</environment>
-	</environments> -->
-<!-- 	<mappers>
-		<mapper resource="org/mybatis/example/BlogMapper.xml" />
-	</mappers>
- -->
+	<properties>
+		<property name="dialect" value="mysql" />
+		<property name="pageSqlId" value=".*Page$" />
+	</properties>
+	<!-- 通过package, 可以直接指定package的名字， mybatis会自动扫描你指定包下面的javabean, 并且默认设置一个别名，默认的名字为： javabean 的首字母小写的非限定类名来作为它的别名。 也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user) <package name="com.dy.entity"/> -->
+	<typeAliases>
+		<package name="com.siping.domain.crm.beans" />
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.siping.rmi.utils.interceptor.PageInterceptor"></plugin>
+	</plugins>
 </configuration>
