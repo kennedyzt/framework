@@ -16,6 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
+/**
+ * 修改530行
+ * @author zengt
+ */
 
 ;(function ($, window, document, undefined) {
 
@@ -527,7 +531,7 @@
 
             // Add expand, collapse or empty spacer icons
             var classList = [];
-            if (node.nodes) {
+            if (node.nodes && node.nodes.length > 0) {
                 classList.push('expand-icon');
                 if (node.state.expanded) {
                     classList.push(_this.options.collapseIcon);
