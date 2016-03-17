@@ -1,6 +1,5 @@
 package com.siping.rmi.utils.interceptor;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +73,6 @@ public class PageInterceptor implements Interceptor {
         // 只重写需要分页的sql语句。通过MappedStatement的ID匹配，默认重写以Page结尾的MappedStatement的sql
         if (mappedStatement.getId().matches(pageSqlId)) {
             BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
-            @SuppressWarnings("unchecked")
             Map<String, Object> paramMap = (Map<String, Object>) boundSql.getParameterObject();
             if (paramMap == null) {
                 throw new NullPointerException("parameterObject is null!");
@@ -111,13 +109,7 @@ public class PageInterceptor implements Interceptor {
         ResultSet rs = null;
         try {
             countStmt = connection.prepareStatement(countSql);
-            // 由于该物理分页不支持mybatis的<foreach>标签，so对该分页做一下更改
-            BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), sql, boundSql.getParameterMappings(), boundSql.getParameterObject());
-            Field metaParamsField = ReflectUtil.getFieldByFieldName(boundSql, "metaParameters");
-            if (metaParamsField != null) {
-                MetaObject mo = (MetaObject) ReflectUtil.getValueByFieldName(boundSql, "metaParameters");
-                ReflectUtil.setValueByFieldName(countBS, "metaParameters", mo);
-            }
+            BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), countSql, boundSql.getParameterMappings(), boundSql.getParameterObject());
             setParameters(countStmt, mappedStatement, countBS, boundSql.getParameterObject());
             rs = countStmt.executeQuery();
             int totalCount = 0;
@@ -125,12 +117,9 @@ public class PageInterceptor implements Interceptor {
                 totalCount = rs.getInt(1);
             }
             paramMap.put("totalCount", totalCount);
+
         } catch (SQLException e) {
             logger.error("Ignore this exception", e);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
         } finally {
             try {
                 rs.close();
@@ -166,7 +155,7 @@ public class PageInterceptor implements Interceptor {
      * @return
      */
     private String buildPageSql(String sql, Map<String, Object> paramMap) {
-        if (paramMap.get("limit").toString().trim().length() != 0) {
+        if (paramMap.get("limit").toString().trim().length() > 0) {
             StringBuilder pageSql = new StringBuilder();
             if ("mysql".equals(dialect)) {
                 pageSql = buildPageSqlForMysql(sql, paramMap);
@@ -226,68 +215,4 @@ public class PageInterceptor implements Interceptor {
     public void setProperties(Properties properties) {
     }
 
-}
-
-class ReflectUtil {
-    /**
-     * 获取obj对象fieldName的Field
-     * @param obj
-     * @param fieldName
-     * @return
-     */
-    public static Field getFieldByFieldName(Object obj, String fieldName) {
-        for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
-            try {
-                return superClass.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException e) {
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 获取obj对象fieldName的属性值
-     * @param obj
-     * @param fieldName
-     * @return
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     */
-    public static Object getValueByFieldName(Object obj, String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        Field field = getFieldByFieldName(obj, fieldName);
-        Object value = null;
-        if (field != null) {
-            if (field.isAccessible()) {
-                value = field.get(obj);
-            } else {
-                field.setAccessible(true);
-                value = field.get(obj);
-                field.setAccessible(false);
-            }
-        }
-        return value;
-    }
-
-    /**
-     * 设置obj对象fieldName的属性值
-     * @param obj
-     * @param fieldName
-     * @param value
-     * @throws SecurityException
-     * @throws NoSuchFieldException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     */
-    public static void setValueByFieldName(Object obj, String fieldName, Object value) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        Field field = getFieldByFieldName(obj, fieldName);
-        if (field.isAccessible()) {
-            field.set(obj, value);
-        } else {
-            field.setAccessible(true);
-            field.set(obj, value);
-            field.setAccessible(false);
-        }
-    }
 }
