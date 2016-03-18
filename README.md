@@ -13,4 +13,6 @@
 2016-03-06 : 动态从数据库获取树
 2016-03-10 : 添加bootstrap-table 插件 完成user模块查询list
 2016-03-11 : 添加PageModel、StringUtils;修改拦截器实现in等复杂查询
-2016-03-17 ： 修改jsp静态资源引用方式为<%@include file="XX.jsp">
+2016-03-17 : 修改jsp静态资源引用方式为<%@include file="XX.jsp">
+2016-03-18 : 添加RequestUtils
+2016-03-18 : 修改spring整合mybatis配置，解决拦截器无法生效问题 
