@@ -1,11 +1,6 @@
 $(function() {
-    $('#table').bootstrapTable({
+    framework.bootstrapTable({
         url : '/user/getListByPage',
-        pagination : true,
-        sidePagination : 'server',
-        pageSize : 10,
-        uniqueId : 'id',
-        toolbar : '#toolbar',
         columns : [ {
             field : 'username',
             title : '用户名'
@@ -21,9 +16,6 @@ $(function() {
         }, {
             field : 'address',
             title : '地址'
-        } ],
-        responseHandler : function(res) {
-            return res;
-        }
+        } ]
     });
 });

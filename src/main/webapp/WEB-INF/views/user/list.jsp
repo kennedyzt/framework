@@ -4,15 +4,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css" />
-<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap-table.css" />
-<script type="text/javascript" src="/resources/js/jquery/jquery-2.1.4.js"></script>
-<script src="/resources/js/bootstrap/bootstrap.js"></script>
-<script src="/resources/js/bootstrap/bootstrap-table.js"></script>
+<%@ include file="../layout/resources.jsp"%>
 </head>
 <body>
-    <div></div>
-    <table id="table"></table>
+	<div></div>
+	<table id="table"></table>
 </body>
 <script type="text/javascript" src="/resources/js/zt/user/list.js/"></script>
 </html>
