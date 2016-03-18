@@ -1,7 +1,8 @@
 package com.siping.rmi.controller.user;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.siping.rmi.beans.common.PageModel;
 import com.siping.rmi.beans.user.User;
 import com.siping.rmi.service.user.IUserService;
+import com.siping.rmi.utils.RequestUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -31,9 +33,9 @@ public class UserController {
 
     @RequestMapping(value = "/getListByPage")
     @ResponseBody
-    public PageModel<User> getListByPage() {
+    public PageModel<User> getListByPage(HttpServletRequest request) {
         PageModel<User> pageModel = null;
-        Map<String, Object> paramMap = new LinkedHashMap<String, Object>();
+        Map<String, Object> paramMap = RequestUtils.getRequestParams(request);
         try {
             pageModel = userService.getListByPage(paramMap);
         } catch (Exception e) {
