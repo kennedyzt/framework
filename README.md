@@ -17,3 +17,4 @@
 2016-03-18 : 添加RequestUtils
 2016-03-18 : 修改spring整合mybatis配置，解决拦截器无法生效问题 
 2016-03-18 : redis 简单demo
+2016-04-08 : 添加bootstrapValidataor.js
