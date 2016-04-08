@@ -30,14 +30,14 @@ var framework = {
         $.extend(DEFAULTS, options);
         $('#table').bootstrapTable(DEFAULTS);
     },
-    openWindow : function(url, width, height, title, closeBtn) {
+    openWindow : function(url, width, height, title, flag) {
         var index = layer.open({
             type : 2, // layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             title : title,
-            content : [ createUrl(url), 'yes' ], // 不出现滚动条no
+            content : [ url, flag || 'no' ], // 不出现滚动条no
             area : [ width, height ],
             shadeClose : false, // 点击阴影是否关闭
-            closeBtn : 1,
+            closeBtn : 1, // layer提供了两种风格的关闭按钮，可通过配置1和2来展示，如果不显示，则closeBtn: 0
             shift : 1, // 目前shift可支持的动画类型有0-6
             maxmin : false
         });

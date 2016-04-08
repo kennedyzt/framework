@@ -7,7 +7,9 @@
 <%@ include file="../layout/resources.jsp"%>
 </head>
 <body>
-	<div></div>
+	<div id="toolbar">
+		<button type="button" onclick="toAdd();" class="btn btn-primary">添加</button>
+	</div>
 	<table id="table"></table>
 </body>
 <script type="text/javascript" src="/resources/js/zt/user/list.js/"></script>

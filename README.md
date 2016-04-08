@@ -16,3 +16,4 @@
 2016-03-17 : 修改jsp静态资源引用方式为<%@include file="XX.jsp">
 2016-03-18 : 添加RequestUtils
 2016-03-18 : 修改spring整合mybatis配置，解决拦截器无法生效问题 
+2016-03-18 : redis 简单demo

@@ -19,3 +19,7 @@ $(function() {
         } ]
     });
 });
+
+function toAdd() {
+    framework.openWindow('/user/add', '40%', '60%', '添加用户');
+}

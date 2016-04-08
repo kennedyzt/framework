@@ -1,41 +1,111 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/bootstrap/bootstrap.css" />
-<script type="text/javascript" src="/resources/js/jquery/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-treeview.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap/jquery.freezeheader.js"></script>
-<script type="text/javascript" src="/resources/js/framework.js"></script>
-<script type="text/javascript" src="/resources/js/layer/layer.js"></script>
+<%@ include file="../layout/resources.jsp"%>
 </head>
 <body>
-    <button type="button" onclick="add();" class="btn btn-default">添加用户</button>
-    <form role="form">
-        <div class="form-group">
-            <label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
-        </div>
-        <div class="form-group">
-            <label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
-        </div>
-        <div class="form-group">
-            <label for="name">名称</label> <input type="text" data-alert="show" class="form-control" id="name" placeholder="请输入名称">
-        </div>
-        <button type="submit" class="btn btn-default">提交</button>
-    </form>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="page-header">
+					<h2>Using Ajax to submit data</h2>
+				</div>
+
+				<form id="defaultForm" method="post" class="form-horizontal" action="ajaxSubmit.php">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Username</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="username" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Email address</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control" name="email" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Password</label>
+						<div class="col-lg-5">
+							<input type="password" class="form-control" name="password" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-primary">Sign up</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
-</html>
-<script>
-    function add() {
-        layer.open({
-            type : 2,
-            title : '百度首页',
-            shadeClose : true,
-            shade : 0.8,
-            area : [ '90%', '90%' ],
-            content : 'http://www.baidu.com' //iframe的url
-        });
-    }
+<script type="text/javascript">
+    $('#defaultForm').bootstrapValidator({
+        message : 'This value is not valid',
+        feedbackIcons : {
+            valid : 'glyphicon glyphicon-ok',
+            invalid : 'glyphicon glyphicon-remove',
+            validating : 'glyphicon glyphicon-refresh'
+        },
+        fields : {
+            username : {
+                message : 'The username is not valid',
+                validators : {
+                    notEmpty : {
+                        message : 'The username is required and can\'t be empty'
+                    },
+                    stringLength : {
+                        min : 6,
+                        max : 30,
+                        message : 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    /*remote: {
+                        url: 'remote.php',
+                        message: 'The username is not available'
+                    },*/
+                    regexp : {
+                        regexp : /^[a-zA-Z0-9_\.]+$/,
+                        message : 'The username can only consist of alphabetical, number, dot and underscore'
+                    }
+                }
+            },
+            email : {
+                validators : {
+                    notEmpty : {
+                        message : 'The email address is required and can\'t be empty'
+                    },
+                    emailAddress : {
+                        message : 'The input is not a valid email address'
+                    }
+                }
+            },
+            password : {
+                validators : {
+                    notEmpty : {
+                        message : 'The password is required and can\'t be empty'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
+        // Prevent form submission
+        e.preventDefault();
+
+        // Get the form instance
+        var $form = $(e.target);
+
+        // Get the BootstrapValidator instance
+        var bv = $form.data('bootstrapValidator');
+
+        // Use Ajax to submit form data
+        $.post($form.attr('action'), $form.serialize(), function(result) {
+            console.log(result);
+        }, 'json');
+    });
 </script>
+</html>
