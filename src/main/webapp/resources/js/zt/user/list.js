@@ -2,6 +2,9 @@ $(function() {
     framework.bootstrapTable({
         url : '/user/getListByPage',
         columns : [ {
+            field : 'operation',
+            title : '操作'
+        },{
             field : 'username',
             title : '用户名'
         }, {
