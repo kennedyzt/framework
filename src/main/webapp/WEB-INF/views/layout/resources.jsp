@@ -8,3 +8,4 @@
 <script src="/resources/js/bootstrap/bootstrapValidator.js"></script>
 <script src="/resources/js/layer/layer.js"></script>
 <script src="/resources/js/framework.js"></script>
+<script src="/resources/js/common.js"></script>

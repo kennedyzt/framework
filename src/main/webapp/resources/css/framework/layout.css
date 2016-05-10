@@ -1,0 +1,31 @@
+.header {
+	width: 100%;
+	height: 10%;
+	border:1px solid #F00;
+}
+
+.main {
+	width: 100%;
+	height: 80%;
+	border:1px solid #F00;
+}
+
+.left {
+	float: left;
+	width: 20%;
+	height: 100%;
+	border:1px solid #F00;
+}
+
+.right {
+	float: left;
+	width: 80%;
+	height: 100%;
+	border:1px solid #F00;
+}
+
+.footer {
+	width: 100%;
+	height: 10%;
+	border:1px solid #F00;
+}

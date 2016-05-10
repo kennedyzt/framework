@@ -3,24 +3,24 @@
 <head>
 <title>kennedy</title>
 <meta charset="utf-8">
-<%@ include file="resources.jsp"%>
+<jsp:include flush="true" page="resources.jsp"></jsp:include>
+<link rel="stylesheet" href="/resources/css/framework/layout.css" />
 </head>
-<body>
-	<div id="main">
-		<div id="header">
-			<iframe src="/header" width="100%" height="100"></iframe>
+<body id="body">
+	<div class="header" id="header">
+		<jsp:include flush="true" page="header.jsp"></jsp:include>
+	</div>
+	<div class="main" id="main">
+		<div class="left" id="left">
+			<jsp:include flush="true" page="menu.jsp"></jsp:include>
 		</div>
-		<div style="height: 500px">
-			<div id="menu" style="float: left; width: 20%; height: 100%">
-				<iframe src="/menu" width="100%" height="100%"></iframe>
-			</div>
-			<div id="content" style="float: left; width: 80%; height: 100%">
-				<iframe src="/content" name="content" width="100%" height="100%"></iframe>
-			</div>
-		</div>
-		<div id="footer" style="height: 100px">
-			<iframe src="/footer" width="100%" height="100%"></iframe>
+		<div class="right" id="right">
+			<iframe src="/content" name="content" width="100%" height="100%"></iframe>
 		</div>
 	</div>
+	<div class="footer" id="footer">
+		<jsp:include flush="true" page="footer.jsp"></jsp:include>
+	</div>
+	<script src="/resources/js/framework/layout/layout.js"></script>
 </body>
 </html>
