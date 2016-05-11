@@ -12,5 +12,5 @@
 	</div>
 	<table id="table"></table>
 </body>
-<script type="text/javascript" src="/resources/js/zt/user/list.js/"></script>
+<script type="text/javascript" src="/resources/js/framework/user/list.js/"></script>
 </html>
