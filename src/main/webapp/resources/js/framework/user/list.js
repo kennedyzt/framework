@@ -1,5 +1,6 @@
 $('#table').frameworkTable({
     url : '/user/getListByPage',
+    height : parent.$(".layui-layer").height()-100,
     columns : [ {
         title : '操作',
         formatter : operationFormatter

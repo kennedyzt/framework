@@ -10,4 +10,9 @@ public class DemoController {
     public String toBootstrapValidator() {
         return "/demo/bootstrapValidator";
     }
+
+    @RequestMapping("/layer")
+    public String toLayer() {
+        return "/demo/layer";
+    }
 }
