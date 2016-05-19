@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/demo/angularjs/helloWorld.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/demo/bootstrapValidator.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/demo/fileInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/demo/layer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/layout/content.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/layout/footer.jsp=UTF-8

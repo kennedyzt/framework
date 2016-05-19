@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50626
-Source Host           : localhost:3306
+Source Server Version : 50617
+Source Host           : 127.0.0.1:3306
 Source Database       : framework
 
 Target Server Type    : MYSQL
-Target Server Version : 50626
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-03-17 23:37:32
+Date: 2016-05-19 16:00:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,10 +24,10 @@ CREATE TABLE `menu` (
   `parent_id` int(11) DEFAULT NULL,
   `level` int(11) unsigned DEFAULT NULL,
   `text` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL COMMENT '模块图标',
   `selected_icon` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
-  `back_color` varchar(255) DEFAULT NULL,
+  `back_color` varchar(255) DEFAULT NULL COMMENT '背景颜色',
   `href` varchar(255) DEFAULT NULL,
   `select_table` tinyint(255) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
@@ -40,15 +40,21 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', null, '1', '系统管理', 'glyphicon glyphicon-home', 'glyphicon glyphicon-ok', '#424200', '#BB5E00', '/user/add', '0', null, '2016-03-06 19:00:33', '1', null, null);
-INSERT INTO `menu` VALUES ('2', '1', '2', '用户管理', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', '/user/list', '0', null, '2016-03-06 19:01:11', '1', null, null);
-INSERT INTO `menu` VALUES ('3', null, '1', '采购订单', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('4', null, '1', '销售订单', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('5', null, '1', '销售发货单', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('6', null, '1', '库存发货单', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('7', '2', '3', '用户列表', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', '/user/list', '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('8', '2', null, '权限管理', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
-INSERT INTO `menu` VALUES ('9', '3', '2', '采购订单列表', null, 'glyphicon glyphicon-ok', '#424200', '#BB5E00', null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('1', null, '1', '系统管理', null, null, null, null, null, '0', null, '2016-03-06 19:00:33', '1', null, null);
+INSERT INTO `menu` VALUES ('2', '1', '2', '用户管理', null, null, null, null, null, '0', null, '2016-03-06 19:01:11', '1', null, null);
+INSERT INTO `menu` VALUES ('3', null, '1', '采购订单', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('4', null, '1', '销售订单', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('5', null, '1', '销售发货单', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('6', null, '1', '库存发货单', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('7', '2', '3', '用户列表', null, null, null, null, '/user/list', '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('8', '2', null, '权限管理', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('9', '3', '2', '采购订单列表', null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `menu` VALUES ('100', null, '1', 'DEMO', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('10', '100', '2', 'BootStrap Validator', null, null, null, null, '/demo//bootstrapvalidator', null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('11', '100', '2', 'Layer', null, null, null, null, '/demo/layer', null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('12', '100', '2', 'AngularJs', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('13', '12', '3', 'Hello World', null, null, null, null, '/demo/angularjs/helloworld', null, null, null, null, null, null);
+INSERT INTO `menu` VALUES ('14', '100', '2', 'FileInput', null, null, null, null, '/demo/fileinput', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for permission
@@ -108,9 +114,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'tom', null, '000000', null, null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('2', 'jack', null, '000000', null, null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('3', 'rose', null, '000000', null, null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('1', 'tom', 'zengt', '000000', '863468390@qq.com', '18384280421', '成都', '2016-05-30 15:40:08', '111', null, null);
+INSERT INTO `user` VALUES ('2', 'jack', 'zengt', '000000', '863468390@qq.com', '18384280421', '成都', '2016-05-30 15:40:08', '111', null, null);
+INSERT INTO `user` VALUES ('3', 'rose', 'zengt', '000000', '863468390@qq.com', '18384280421', '成都', '2016-05-30 15:40:08', '111', null, null);
 
 -- ----------------------------
 -- Table structure for user_role

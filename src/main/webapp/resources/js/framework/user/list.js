@@ -1,6 +1,6 @@
-$('#table').frameworkTable({
+$('#table').framework.bootstrapTable({
     url : '/user/getListByPage',
-    height : parent.$(".layui-layer").height()-100,
+    height : parent.$(".layui-layer").height() - 100,
     columns : [ {
         title : '操作',
         formatter : operationFormatter

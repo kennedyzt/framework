@@ -15,4 +15,14 @@ public class DemoController {
     public String toLayer() {
         return "/demo/layer";
     }
+
+    @RequestMapping("/angularjs/helloworld")
+    public String toHelloWorld() {
+        return "/demo/angularjs/helloWorld";
+    }
+
+    @RequestMapping("/fileinput")
+    public String toFileInput() {
+        return "/demo/fileInput";
+    }
 }
