@@ -15,17 +15,12 @@
 			<jsp:include flush="true" page="menu.jsp"></jsp:include>
 		</div>
 		<div class="right" id="right">
-			<ul id="myTab" class="nav nav-tabs">
-				<li class="active"><a href="#home" data-toggle="tab">W3Cschool
-						Home </a></li>
-				<li><a href="#ios" data-toggle="tab">iOS</a></li>
+			<ul id="myTab" class="nav nav-tabs" style="height:7%;">
+				<li data-id="" class="active"><a href="#home" data-toggle="tab">W3Cschool Home </a></li>
 			</ul>
-			<div class="tab-content">
-				<div class="tab-pane fade in active" id="home">
-					<iframe id="page_1" style="overflow-x: hidden; display: inline;" allowtransparency="true" frameborder="0" width="100%" height="100%" src="user/list"></iframe>
-				</div>
-				<div class="tab-pane fade in active" id="ios">
-					<p>ios</p>
+			<div class="tab-content" style="height:93%">
+				<div class="tab-pane fade in active" id="home" style="width:100%;height:100%">
+					<iframe width="100%" height="100%" src="http://www.baidu.com"></iframe>
 				</div>
 			</div>
 		</div>

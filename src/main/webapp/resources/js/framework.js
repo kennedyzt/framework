@@ -1,31 +1,26 @@
 (function($) {
-    $.fn.framework = function() {
-        var FRAMEWOEK = {
-            bootstrapTable : function(options) {
-                var DEFAULTS = {
-                    height : 550,
-                    undefinedText : '-',
-                    method : 'get',
-                    pagination : true,
-                    sidePagination : 'server',
-                    pageSize : 10,
-                    pageList : [ 10, 25, 50, 100, 'ALL' ],
-                    minimumCountColumns : 2,
-                    search : true,
-                    uniqueId : 'id',
-                    toolbar : '#toolbar',
-                    responseHandler : function(res) {
-                        return {
-                            total : res.totalCount,
-                            rows : res.records
-                        };
-                    }
+    $.fn.frameworkTable = function(options) {
+        var DEFAULTS = {
+            height : 550,
+            undefinedText : '-',
+            method : 'get',
+            pagination : true,
+            sidePagination : 'server',
+            pageSize : 10,
+            pageList : [ 10, 25, 50, 100, 'ALL' ],
+            minimumCountColumns : 2,
+            search : true,
+            uniqueId : 'id',
+            toolbar : '#toolbar',
+            responseHandler : function(res) {
+                return {
+                    total : res.totalCount,
+                    rows : res.records
                 };
-                $.extend(DEFAULTS, options);
-                $(this).bootstrapTable(DEFAULTS);
             }
         };
-        return FRAMEWOEK;
+        $.extend(DEFAULTS, options);
+        $(this).bootstrapTable(DEFAULTS);
     }
 })(jQuery);
 var framework = {
