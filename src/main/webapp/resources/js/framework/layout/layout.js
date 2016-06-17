@@ -12,7 +12,29 @@ function resizeHW() {
         "width" : _width,
         "height" : _height
     });
-    $("#right").css({
-        "height" : _height * 80 / 100
+    
+    $("#header").css({
+        "width" : _width,
+        "height" : 100
+    });
+    
+    $("#main").css({
+        "height" : _height-200,
+        "width" : _width
+    });
+    
+    $(".left").css({
+        "height" : _height-200,
+        "width" : 200
+    });
+    
+    $(".tab-content").css({
+        "height" : _height-200-40,
+        "width" : _width-200
+    });
+    
+    $("#footer").css({
+        "height" : 100,
+        "width" : _width
     });
 }

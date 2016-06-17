@@ -15,10 +15,10 @@
             <jsp:include flush="true" page="menu.jsp"></jsp:include>
         </div>
         <div class="right" id="right">
-            <ul class="nav nav-tabs" style="height: 7%;">
+            <ul class="nav nav-tabs" style="height: 40px;">
                 <li data-id="" class="active"><a href="#home" data-toggle="tab">系统主页</a></li>
             </ul>
-            <div class="tab-content" style="height: 93%">
+            <div class="tab-content">
                 <div class="tab-pane fade in active" id="home" style="width: 100%; height: 100%">
                     <h1>主页面</h1>
                 </div>

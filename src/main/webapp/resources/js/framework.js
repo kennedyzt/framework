@@ -1,4 +1,4 @@
-(function($) {
+!(function($) {
     $.fn.frameworkTable = function(options) {
         var DEFAULTS = {
             height : 550,
@@ -53,6 +53,7 @@ var framework = {
 }
 /**
  * nodeData{nodeId,href}
+ * 
  * @param nodeData
  */
 function tabs(nodeData) {
