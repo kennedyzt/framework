@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.siping</groupId>
-	<artifactId>rmidemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>rmidemo Maven Webapp</name>
+	<artifactId>framework</artifactId>
+	<version>1.0.0</version>
+	<name>framework</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<mybatis.version>3.3.0</mybatis.version>
@@ -116,8 +116,9 @@
 			<!-- <exclusions> <exclusion> <groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> </exclusion> </exclusions> -->
 		</dependency>
 		<!-- SLF4J提供许多常见绑定日志框架 -->
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>jcl-over-slf4j</artifactId> <version>1.5.8</version> </dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> <version>1.5.8</version> </dependency> <dependency> 
-			<groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> <version>1.5.8</version> </dependency> <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> <version>1.2.14</version> </dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>jcl-over-slf4j</artifactId> <version>1.5.8</version> </dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
+			<version>1.5.8</version> </dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> <version>1.5.8</version> </dependency> <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			<version>1.2.14</version> </dependency> -->
 		<!-- log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -209,9 +210,14 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.19</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
 	</dependencies>
 	<build>
-		<finalName>rmidemo</finalName>
+		<finalName>framework</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

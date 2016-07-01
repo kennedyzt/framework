@@ -2,6 +2,13 @@ package com.siping.rmi.controller.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.siping.rmi.beans.common.ResultMsg;
+import com.siping.rmi.beans.user.User;
 
 @Controller
 @RequestMapping("/demo")
@@ -24,5 +31,12 @@ public class DemoController {
     @RequestMapping("/fileinput")
     public String toFileInput() {
         return "/demo/fileInput";
+    }
+
+    @RequestMapping(value = "/fileinput/adduser", method = RequestMethod.POST)
+    public @ResponseBody ResultMsg addUser(User user, @RequestParam("doc") MultipartFile file) {
+        ResultMsg resultMsg = new ResultMsg();
+        resultMsg.setIsSuccess(Boolean.TRUE);
+        return resultMsg;
     }
 }

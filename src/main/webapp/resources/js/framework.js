@@ -22,6 +22,55 @@
         $.extend(DEFAULTS, options);
         $(this).bootstrapTable(DEFAULTS);
     }
+    $.fn.frameworkFileInput = function(options) {
+        var DEFAULTS = {
+            language : 'zh', // 设置语言
+            maxFileCount : 9, // 表示允许同时上传的最大文件个数
+            allowedFileExtensions : [ 'jpeg', 'jpg', 'png', 'gif', 'bmp', 'tif' ],// 接收的文件后缀
+            showPreview : true, // 是否显示预览
+            showUpload : false, // 是否显示上传按钮
+            showCaption : true, // 是否显示标题
+            showClose : false, // 关闭窗口
+            showUploadedThumbs : false,
+            dropZoneEnabled : false, // 是否允许拖拽
+            initialPreviewShowDelete : true, // 修改初始化时显示删除按钮
+            overwriteInitial : false, // 修改时不覆盖原有文件
+            maxImageWidth : 1500,
+            maxImageHeight : 1500,
+            maxFileSize : 1024,
+            previewSettings : {
+                image : {
+                    width : "176px",
+                },
+                html : {
+                    width : "176px"
+                },
+                text : {
+                    width : "176px"
+                },
+                video : {
+                    width : "176px"
+                },
+                audio : {
+                    width : "176px"
+                },
+                flash : {
+                    width : "176px"
+                },
+                object : {
+                    width : "176px"
+                },
+                other : {
+                    width : "176px"
+                }
+            },
+            browseClass : "btn btn-primary", // 按钮样式
+            defaultPreviewContent : '',
+            previewFileIcon : "<i class='glyphicon glyphicon-king'></i>"
+        };
+        $.extend(DEFAULTS, options);
+        this.fileinput(DEFAULTS);
+    }
 })(jQuery);
 var framework = {
     openWindow : function(url, width, height, title, allowScroll) {

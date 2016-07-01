@@ -7,11 +7,9 @@
 </head>
 
 <body>
-	<h1>登录页面</h1>
-	<form action="/login" method="post">
-		<label>用户名：</label><input name="username">
-		<label>密码：</label><input name ="password">
-		<input type="submit" value="登录">
-	</form>
+    <h1>登录页面</h1>
+    <form action="/login" method="post">
+        <label>用户名：</label><input name="username"> <label>密码：</label><input name="password"> <input type="submit" value="登录">
+    </form>
 </body>
 </html>

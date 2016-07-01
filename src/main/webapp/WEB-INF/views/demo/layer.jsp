@@ -5,9 +5,9 @@
 <%@ include file="../layout/resources.jsp"%>
 </head>
 <body>
-	<div class="container">
-		<button type="button" onclick="openWin();" class="btn btn-default">弹窗</button>
-	</div>
+    <div class="container">
+        <button type="button" onclick="openWin();" class="btn btn-default">弹窗</button>
+    </div>
 </body>
 <script>
     function openWin() {

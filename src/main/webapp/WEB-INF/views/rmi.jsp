@@ -8,6 +8,6 @@
 <script src="/resources/js/angular/angular.min.js"></script>
 </head>
 <body>
-	<p>Nothing here {{'yet' + '!'}}</p>
+    <p>Nothing here {{'yet' + '!'}}</p>
 </body>
 </html>
