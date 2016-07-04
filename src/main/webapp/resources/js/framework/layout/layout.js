@@ -6,35 +6,40 @@ $(function() {
 });
 
 function resizeHW() {
-    var _height = $(window).height();
-    var _width = $(window).width();
+    var _height = $(window).height(); // 屏幕高度
+    var _width = $(window).width(); // 屏幕宽度
+    var _headerHeight = 100; // header高度
+    var _footerHeight = 100; // footer高度
+    var _menuWidth = 200; // 菜单宽度
     $("#body").css({
         "width" : _width,
         "height" : _height
     });
-    
+
     $("#header").css({
         "width" : _width,
-        "height" : 100
+        "height" : _headerHeight
     });
-    
+
     $("#main").css({
-        "height" : _height-200,
+        "height" : _height - (_headerHeight + _footerHeight),
         "width" : _width
     });
-    
+
     $(".left").css({
-        "height" : _height-200,
-        "width" : 200
+        "float" : "left",
+        "height" : _height - (_headerHeight + _footerHeight),
+        "width" : _menuWidth
     });
-    
+
     $(".tab-content").css({
-        "height" : _height-200-40,
-        "width" : _width-200
+        "float" : "left",
+        "height" : _height - (_headerHeight + _footerHeight),
+        "width" : _width - _menuWidth
     });
-    
+
     $("#footer").css({
-        "height" : 100,
+        "height" : _footerHeight,
         "width" : _width
     });
 }

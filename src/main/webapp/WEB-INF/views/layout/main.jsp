@@ -4,7 +4,6 @@
 <title>kennedy</title>
 <meta charset="UTF-8">
 <jsp:include flush="true" page="resources.jsp"></jsp:include>
-<link rel="stylesheet" href="/resources/css/framework/layout.css" />
 </head>
 <body id="body">
     <div class="header" id="header">
