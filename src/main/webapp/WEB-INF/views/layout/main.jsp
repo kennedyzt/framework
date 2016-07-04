@@ -14,7 +14,7 @@
             <jsp:include flush="true" page="menu.jsp"></jsp:include>
         </div>
         <div class="right" id="right">
-            <ul class="nav nav-tabs" style="height: 40px;">
+            <ul class="nav nav-tabs" style="height: 40px; width: 100%">
                 <li data-id="" class="active"><a href="#home" data-toggle="tab">系统主页</a></li>
             </ul>
             <div class="tab-content">

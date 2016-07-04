@@ -17,6 +17,7 @@ function resizeHW() {
     });
 
     $("#header").css({
+        "background-color" : '#888877',
         "width" : _width,
         "height" : _headerHeight
     });
@@ -27,18 +28,26 @@ function resizeHW() {
     });
 
     $(".left").css({
+        "overflow-y" : "scroll",
         "float" : "left",
         "height" : _height - (_headerHeight + _footerHeight),
         "width" : _menuWidth
     });
 
-    $(".tab-content").css({
+    $(".right").css({
         "float" : "left",
         "height" : _height - (_headerHeight + _footerHeight),
         "width" : _width - _menuWidth
     });
 
+    $(".tab-content").css({
+        "float" : "left",
+        "height" : _height - (_headerHeight + _footerHeight) - 40,
+        "width" : _width - _menuWidth
+    });
+
     $("#footer").css({
+        "background-color" : '#888877',
         "height" : _footerHeight,
         "width" : _width
     });
