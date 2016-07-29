@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="toolbar">
-        <button type="button" onclick="toAdd();" class="btn btn-primary">添加</button>
+        <button type="button" id="add" class="btn btn-primary">添加</button>
     </div>
     <table id="table"></table>
 </body>

@@ -19,9 +19,9 @@
 		u.update_date, u.update_by
 	</sql>
 	<insert id="add" parameterType="com.siping.rmi.beans.user.User" useGeneratedKeys="true" keyProperty="id">
-		insert into `user` (`name`, pwd)
-		values (#{name,jdbcType=VARCHAR},
-		#{pwd,jdbcType=VARCHAR})
+		insert into user (username, password,email)
+		values (#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR})
 	</insert>
 	<select id="findByName" resultMap="UserMap" parameterType="java.lang.String">
 		select * from t_user u where u.username = #{username}

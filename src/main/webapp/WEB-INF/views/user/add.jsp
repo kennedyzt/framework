@@ -15,7 +15,7 @@
                     </h2>
                 </div>
 
-                <form id="defaultForm" method="post" class="form-horizontal" action="ajaxSubmit.php">
+                <form id="userForm" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Username</label>
                         <div class="col-lg-5">
@@ -39,7 +39,7 @@
 
                     <div class="form-group">
                         <div class="col-lg-9 col-lg-offset-3">
-                            <button type="button" onclick="validator();" class="btn btn-primary">Sign up</button>
+                            <button type="button" id="submitBtn" class="btn btn-primary">添加</button>
                         </div>
                     </div>
                 </form>
@@ -47,5 +47,5 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="/resources/js/zt/user/add.js/"></script>
+<script type="text/javascript" src="/resources/js/framework/user/add.js/"></script>
 </html>

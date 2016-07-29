@@ -18,6 +18,7 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     public void add(User user) throws Exception {
+        userMapper.add(user);
     }
 
     @Override

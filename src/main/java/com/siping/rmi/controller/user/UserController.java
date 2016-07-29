@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siping.rmi.beans.common.PageModel;
+import com.siping.rmi.beans.common.ResultMsg;
 import com.siping.rmi.beans.user.User;
 import com.siping.rmi.service.user.IUserService;
 import com.siping.rmi.utils.RequestUtils;
@@ -29,6 +30,20 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String toAdd() {
         return "/user/add";
+    }
+    
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultMsg add(User user) {
+        ResultMsg msg=null;
+        try {
+            userService.add(user);
+            msg=new ResultMsg(Boolean.TRUE,"添加成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg=new ResultMsg(Boolean.FALSE,"添加失败");
+        }
+        return msg;
     }
 
     @RequestMapping(value = "/getListByPage")
