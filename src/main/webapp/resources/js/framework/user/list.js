@@ -1,4 +1,4 @@
-$('#table').frameworkTable({
+$('#table').framework().bootstrapTable({
     url : '/user/getListByPage',
     height : parent.$(".layui-layer").height() - 100,
     columns : [ {

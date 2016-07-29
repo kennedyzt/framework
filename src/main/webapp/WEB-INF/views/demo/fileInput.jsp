@@ -31,7 +31,7 @@
         init();
     });
     function init() {
-        $("#doc").frameworkFileInput();
+        $("#doc").framework().fileInput();
         bindEvent();
     }
     function bindEvent() {
@@ -47,6 +47,14 @@
                     alert('提交成功！');
                 }
             });
+        });
+        $('#doc').on('fileloaded', function(event, file, previewId, index, reader) {
+            var files = $('#doc').fileinput('getFileStack');
+            for ( var i in files) {
+                if (files[i].name == file.name) {
+                    return;
+                }
+            }
         });
     }
 </script>
